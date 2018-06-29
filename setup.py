@@ -22,12 +22,17 @@ setup(
         "pymed"
     ],
     install_requires=[
-        "graphene"
+        "graphene==2.1",
+        "requests==2.18.4"
     ],
     tests_require=["pytest"],
+    long_description_content_type='text/markdown',
     long_description=read("README.md"),
     classifiers=[
+        "Topic :: Utilities",
         "Development Status :: 3 - Alpha",
-        "Topic :: Utilities"
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3 :: Only"
     ],
 )
