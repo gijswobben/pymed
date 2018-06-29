@@ -1,5 +1,6 @@
 import os
 from setuptools import setup
+from setuptools import find_packages
 from version import __version__
 
 
@@ -18,9 +19,7 @@ setup(
     license="MIT",
     keywords="PubMed GraphQL",
     url="http://packages.python.org/pymed",
-    packages=[
-        "pymed"
-    ],
+    packages=find_packages(),
     install_requires=[
         "graphene==2.1",
         "requests==2.18.4"
