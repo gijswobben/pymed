@@ -45,7 +45,7 @@ class PubMedLoader(object):
         self.email = email
 
         # Define the standard / default query parameters
-        self.parameters = {"tool": tool, "email": email, "db": "pmc"}
+        self.parameters = {"tool": tool, "email": email, "db": "pubmed"}
 
     def _get(self: object, url: str, parameters: dict, output: str = "json"):
         """ Generic helper method that makes a request to PubMed.
@@ -138,26 +138,21 @@ class PubMedLoader(object):
 
         # Loop over the articles and parse them
         article_objects = []
-        for article in root.iter("article"):
+        for article in root.iter("PubmedArticle"):
 
             # Create an empty holder
             article_object = {}
 
             # Add basic info
-            article_object["article_id"] = _getText(article, ".//article-id[@pub-id-type='pmc']", None)
-            article_object["title"] = _getText(article, ".//article-title", None)
-            if article_object["title"] is None:
-                article_object["title"] = _getText(article, ".//ArticleTitle", None)
-            if article_object["title"] is None:
-                continue
-            article_object["keywords"] = [keyword.text for keyword in article.findall(".//kwd") if keyword is not None]
+            article_object["article_id"] = _getText(article, ".//ArticleId[@IdType='pubmed']", None)
+            article_object["title"] = _getText(article, ".//ArticleTitle", None)
+            article_object["keywords"] = [keyword.text for keyword in article.findall(".//Keyword") if keyword is not None]
             article_object["journal"] = schema.Journal(
-                title=_getText(article, ".//journal-title", None),
-                publisher=_getText(article, ".//publisher-name", None),
+                title=_getText(article, ".//Journal/Title", None)
             )
 
             try:
-                article_object["abstract"] = xml.tostring(article.find(".//abstract"), method="text").decode("utf8").strip().replace("\n", " ")
+                article_object["abstract"] = xml.tostring(article.find(".//AbstractText"), method="text").decode("utf8").strip().replace("\n", " ")
             except Exception as e:
                 article_object["abstract"] = None
 
@@ -165,39 +160,32 @@ class PubMedLoader(object):
             try:
 
                 # Get the publication element
-                publication_date = article.find(".//pub-date[@pub-type='pmc-release']")
-                print(publication_date)
-                if publication_date is None:
-                    publication_date = article.find(".//PubMedPubDate[@PubStatus='pubmed']")
-                    print(publication_date)
-                if publication_date is None:
-                    publication_date = article.find(".//PubDate")
-                    print(publication_date)
+                publication_date = article.find(".//PubMedPubDate[@PubStatus='pubmed']")
 
-                publication_year = int(_getText(publication_date, ".//year", None))
-                if publication_year is None:
-                    publication_year = int(_getText(publication_date, ".//Year", None))
-                publication_month = int(_getText(publication_date, ".//month", None))
-                if publication_month is None:
-                    publication_month = int(_getText(publication_date, ".//Month", None))
-                publication_day = int(_getText(publication_date, ".//day", None))
-                if publication_day is None:
-                    publication_day = int(_getText(publication_date, ".//Day", None))
+                publication_year = int(_getText(publication_date, ".//Year", "-1"))
+                publication_month = int(_getText(publication_date, ".//Month", "-1"))
+                publication_day = int(_getText(publication_date, ".//Day", "-1"))
+
+                if publication_month == -1:
+                    publication_month = 1
+                if publication_day == -1:
+                    publication_day = 1
 
                 article_object["publication_date"] = datetime.date(
                     year=publication_year, month=publication_month, day=publication_day
                 )
             except Exception as e:
+                print(e)
                 article_object["publication_date"] = None
 
             # Get the list of authors
             article_object["authors"] = [
                 schema.Author(
-                    surname=_getText(author, ".//surname", None),
-                    given_names=_getText(author, ".//given-names", None),
-                    email=_getText(author, ".//email", None),
+                    lastname=_getText(author, ".//LastName", None),
+                    firstname=_getText(author, ".//ForeName", None),
+                    initials=_getText(author, ".//Initials", None),
                 )
-                for author in article.findall(".//contrib[@contrib-type='author']")
+                for author in article.findall(".//Author")
             ]
 
             # Return the article object

@@ -14,6 +14,7 @@ query = '''
     title
     keywords
     publicationDate
+    abstract
   }
 }
 '''
@@ -30,6 +31,7 @@ for article in result.data.get("articles"):
     title = article.get("title", "")
     keywords = "\", \"".join(article.get("keywords", []))
     publication_date = article.get("publicationDate", "")
+    abstract = article.get("abstract", "")
 
     # Show information about the article
-    print(f"{article_id} - {publication_date} - {title}\nKeywords: \"{keywords}\"\n")
+    print(f"{article_id} - {publication_date} - {title}\nKeywords: \"{keywords}\"\n{abstract}\n")

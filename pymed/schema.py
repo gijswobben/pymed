@@ -3,14 +3,13 @@ from . import loaders as loaders
 
 
 class Author(graphene.ObjectType):
-    surname = graphene.String(description="Surname of the author")
-    given_names = graphene.String(description="Given names of the author")
-    email = graphene.String(description="Email address of the author")
+    lastname = graphene.String(description="Last name of the author")
+    firstname = graphene.String(description="Given names of the author")
+    initials = graphene.String(description="Initials of the author")
 
 
 class Journal(graphene.ObjectType):
     title = graphene.String(description="Title of the journal")
-    publisher = graphene.String(description="Publisher of the journal")
 
 
 class Article(graphene.ObjectType):
