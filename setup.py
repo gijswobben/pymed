@@ -18,7 +18,7 @@ setup(
     ),
     license="MIT",
     keywords="PubMed PMC",
-    url="http://packages.python.org/pymed",
+    url="https://github.com/gijswobben/pymed",
     packages=find_packages(),
     install_requires=[
         "requests==2.18.4"
