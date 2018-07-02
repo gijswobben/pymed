@@ -14,14 +14,13 @@ setup(
     author="Gijs Wobben",
     author_email="gijswobben@gmail.com",
     description=(
-        "GraphQL schema (in Python) for PubMed"
+        "Python library for access to PubMed"
     ),
     license="MIT",
-    keywords="PubMed GraphQL",
+    keywords="PubMed PMC",
     url="http://packages.python.org/pymed",
     packages=find_packages(),
     install_requires=[
-        "graphene==2.1",
         "requests==2.18.4"
     ],
     tests_require=["pytest"],

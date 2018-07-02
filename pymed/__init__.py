@@ -1,5 +1,3 @@
-from .schema import schema
-from .loaders import PubMedLoader
-from .pubmed import PubMed
+from .api import PubMed
 
-__all__ = ["schema", "PubMed", "PubMedLoader"]
+__all__ = ["PubMed"]

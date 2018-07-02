@@ -4,34 +4,24 @@ from pymed import PubMed
 # Create a PubMed object that GraphQL can use to query
 # Note that the parameters are not required but kindly requested by PubMed Central
 # https://www.ncbi.nlm.nih.gov/pmc/tools/developers/
-pubmed = PubMed(tool="MyGraphQL_API", email="my@email.address")
+pubmed = PubMed(tool="MyTool", email="my@email.address")
 
 # Create a GraphQL query in plain text
-query = '''
-{
-  articles(query: "asthma", maxResults: 15) {
-    articleId
-    title
-    keywords
-    publicationDate
-    abstract
-  }
-}
-'''
+query = "occupational health[Title]"
 
 
-# Execute the query against the GraphQL schema
-result = pubmed.query(query)
+# Execute the query against the API
+results = pubmed.query(query, max_results=500)
 
 # Loop over the retrieved articles
-for article in result.data.get("articles"):
+for article in results:
 
-    # Extract information from the retrieved article
-    article_id = article.get("articleId", "")
-    title = article.get("title", "")
-    keywords = "\", \"".join(article.get("keywords", []))
-    publication_date = article.get("publicationDate", "")
-    abstract = article.get("abstract", "")
+    # Extract and format information from the article
+    article_id = article.article_id
+    title = article.title
+    keywords = '", "'.join(article.keywords)
+    publication_date = article.publication_date
+    abstract = article.abstract
 
     # Show information about the article
-    print(f"{article_id} - {publication_date} - {title}\nKeywords: \"{keywords}\"\n{abstract}\n")
+    print(f'{article_id} - {publication_date} - {title}\nKeywords: "{keywords}"\n{abstract}\n')
