@@ -3,3 +3,8 @@ This example retrieves articles from PubMed and uses the author information to c
 
 ## Why?
 Analyzing all the literature in a field can be a very complicated task. First steps could be to visualize the entire field in a graph. One of these visualizations is the author co-occurrence graph, that shows how authors are inter-connected. The graph helps to answer questions like: What authors connect multiple research groups together?
+
+## Example - Field of occupational health
+Here a visualization of the field of occupational health:
+
+![Field of occupational health](./author_co_occurrence_occupational_health.png "Field of occupational health")
