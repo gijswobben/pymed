@@ -20,7 +20,7 @@ def clean():
             raise e
 
 
-def buildPackage():
+def buildPackage(production=False):
     """ Method that builds a package and uploads it to PyPi.
     """
 
@@ -29,7 +29,10 @@ def buildPackage():
 
     # Run these OS commands to build and upload the package
     os.system("python setup.py sdist bdist_wheel")
-    os.system("twine upload --repository pypi dist/*")
+    if production:
+        os.system("twine upload --repository pypiprd dist/*")
+    else:
+        os.system("twine upload --repository pypi dist/*")
 
     # Clean any mess we made
     clean()
@@ -77,7 +80,8 @@ def bumpVersion(release_type: str = "revision", direction: int = 1):
 
 @click.command()
 @click.option("--release_type", "-t", default="revision", help="Type of release to build")
-def build(release_type):
+@click.option('--production/--no-production', default=False)
+def build(release_type, production):
     """ Method that chains together the bumping of the version, committing the change and pushing the new package.
     """
 
@@ -94,7 +98,7 @@ def build(release_type):
     commitChanges()
 
     print("Build the package and upload it to PyPi")
-    buildPackage()
+    buildPackage(production=production)
 
 
 if __name__ == "__main__":
