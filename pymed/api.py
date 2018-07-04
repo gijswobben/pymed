@@ -59,6 +59,32 @@ class PubMed(object):
         # Chain the batches back together and return the list
         return itertools.chain.from_iterable(articles)
 
+    def getTotalResultsCount(self: object, query: str) -> int:
+        """ Helper method that returns the total number of results that match the query.
+
+            Parameters:
+                - query                 String, the query to send to PubMed
+
+            Returns:
+                - total_results_count   Int, total number of results for the query in PubMed
+        """
+
+        # Get the default parameters
+        parameters = self.parameters.copy()
+
+        # Add specific query parameters
+        parameters["term"] = query
+        parameters["retmax"] = 1
+
+        # Make the request (request a single article ID for this search)
+        response = self._get(url="/entrez/eutils/esearch.fcgi", parameters=parameters)
+
+        # Get from the returned meta data the total number of available results for the query
+        total_results_count = int(response.get("esearchresult", {}).get("count"))
+
+        # Return the total number of results (without retrieving them)
+        return total_results_count
+
     def _get(self: object, url: str, parameters: dict, output: str = "json") -> Union[dict, str]:
         """ Generic helper method that makes a request to PubMed.
 
