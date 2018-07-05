@@ -3,7 +3,7 @@ import click
 import shutil
 
 from git import Repo
-from version import __version__
+from pymed.version import __version__
 
 
 def clean():
@@ -46,7 +46,7 @@ def commitChanges():
     repo = Repo(os.path.dirname(__file__))
 
     # Commit the new version
-    repo.git.commit("version.py", message="Bumped the release version")
+    repo.git.commit("pymed/version.py", message="Bumped the release version")
 
     # Push any changes
     repo.git.push("origin", "master")
@@ -71,7 +71,7 @@ def bumpVersion(release_type: str = "revision", direction: int = 1):
     new_version = f"{major}.{minor}.{revision}"
 
     # Open the version file and save the new version number
-    with open("version.py", "w") as version_file:
+    with open("pymed/version.py", "w") as version_file:
         version_file.write(f"""__version__ = "{new_version}"\n""")
 
     # Return the new version
