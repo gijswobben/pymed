@@ -24,4 +24,6 @@ for article in results:
     abstract = article.abstract
 
     # Show information about the article
-    print(f'{article_id} - {publication_date} - {title}\nKeywords: "{keywords}"\n{abstract}\n')
+    print(
+        f'{article_id} - {publication_date} - {title}\nKeywords: "{keywords}"\n{abstract}\n'
+    )

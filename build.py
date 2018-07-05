@@ -79,15 +79,19 @@ def bumpVersion(release_type: str = "revision", direction: int = 1):
 
 
 @click.command()
-@click.option("--release_type", "-t", default="revision", help="Type of release to build")
-@click.option('--production/--no-production', default=False)
+@click.option(
+    "--release_type", "-t", default="revision", help="Type of release to build"
+)
+@click.option("--production/--no-production", default=False)
 def build(release_type, production):
     """ Method that chains together the bumping of the version, committing the change and pushing the new package.
     """
 
     # Check the input
     if release_type not in ["major", "minor", "revision"]:
-        raise Exception("Unknown release type, choose one of the following: 'major', 'minor', or 'revision'")
+        raise Exception(
+            "Unknown release type, choose one of the following: 'major', 'minor', or 'revision'"
+        )
 
     # Bump the version
     new_version = bumpVersion(release_type=release_type)

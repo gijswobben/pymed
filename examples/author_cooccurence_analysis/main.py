@@ -23,7 +23,13 @@ nodes = {
     for index, author in enumerate(
         set(
             itertools.chain.from_iterable(
-                [[f'{author["lastname"]} {author["firstname"]}' for author in article.authors] for article in results]
+                [
+                    [
+                        f'{author["lastname"]} {author["firstname"]}'
+                        for author in article.authors
+                    ]
+                    for article in results
+                ]
             )
         )
     )
@@ -35,7 +41,10 @@ edges = list(
         [
             [combination for combination in itertools.combinations(co_author_list, 2)]
             for co_author_list in [
-                [nodes[f'{author["lastname"]} {author["firstname"]}'] for author in article.authors]
+                [
+                    nodes[f'{author["lastname"]} {author["firstname"]}']
+                    for author in article.authors
+                ]
                 for article in results
             ]
         ]
