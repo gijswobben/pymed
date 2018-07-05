@@ -11,7 +11,12 @@ class PubMedArticle(object):
     """ Data class that contains a PubMed article.
     """
 
-    def __init__(self: object, xml_element: Optional[TypeVar("Element")] = None, *args: list, **kwargs: dict) -> None:
+    def __init__(
+        self: object,
+        xml_element: Optional[TypeVar("Element")] = None,
+        *args: list,
+        **kwargs: dict,
+    ) -> None:
         """ Initialization of the object from XML or from parameters.
         """
 
@@ -66,7 +71,11 @@ class PubMedArticle(object):
         # Parse the basic info
         self.article_id = _getText(xml_element, ".//ArticleId[@IdType='pubmed']", None)
         self.title = _getText(xml_element, ".//ArticleTitle", None)
-        self.keywords = [keyword.text for keyword in xml_element.findall(".//Keyword") if keyword is not None]
+        self.keywords = [
+            keyword.text
+            for keyword in xml_element.findall(".//Keyword")
+            if keyword is not None
+        ]
         self.journal = _getText(xml_element, ".//Journal/Title", None)
 
         # Try to parse and clean the abstract
@@ -77,7 +86,12 @@ class PubMedArticle(object):
                 self.abstract = ""
 
             else:
-                self.abstract = xml.tostring(abstract_element, method="text").decode("utf8").strip().replace("\n", " ")
+                self.abstract = (
+                    xml.tostring(abstract_element, method="text")
+                    .decode("utf8")
+                    .strip()
+                    .replace("\n", " ")
+                )
 
         # Set the abstract to None if we're unable to parse it
         except Exception as e:
@@ -94,7 +108,9 @@ class PubMedArticle(object):
             publication_day = int(_getText(publication_date, ".//Day", "1"))
 
             # Construct a datetime object from the info
-            self.publication_date = datetime.date(year=publication_year, month=publication_month, day=publication_day)
+            self.publication_date = datetime.date(
+                year=publication_year, month=publication_month, day=publication_day
+            )
 
         # Unable to parse the datetime
         except Exception as e:
@@ -117,7 +133,9 @@ class PubMedArticle(object):
 
         return json.dumps(
             self,
-            default=lambda o: o.__dict__ if not isinstance(o, datetime.datetime) else str(o),
+            default=lambda o: o.__dict__
+            if not isinstance(o, datetime.datetime)
+            else str(o),
             sort_keys=True,
             indent=4,
         )

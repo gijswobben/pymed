@@ -17,7 +17,9 @@ class PubMed(object):
     """ Wrapper around the PubMed API.
     """
 
-    def __init__(self: object, tool: str = "my_tool", email: str = "my_email@example.com") -> None:
+    def __init__(
+        self: object, tool: str = "my_tool", email: str = "my_email@example.com"
+    ) -> None:
         """ Initialization of the object.
 
             Parameters:
@@ -54,7 +56,12 @@ class PubMed(object):
         article_ids = self._getArticleIds(query=query, max_results=max_results)
 
         # Get the articles themselves
-        articles = list([self._getArticles(article_ids=batch) for batch in batches(article_ids, 250)])
+        articles = list(
+            [
+                self._getArticles(article_ids=batch)
+                for batch in batches(article_ids, 250)
+            ]
+        )
 
         # Chain the batches back together and return the list
         return itertools.chain.from_iterable(articles)
@@ -85,7 +92,9 @@ class PubMed(object):
         # Return the total number of results (without retrieving them)
         return total_results_count
 
-    def _get(self: object, url: str, parameters: dict, output: str = "json") -> Union[dict, str]:
+    def _get(
+        self: object, url: str, parameters: dict, output: str = "json"
+    ) -> Union[dict, str]:
         """ Generic helper method that makes a request to PubMed.
 
             Parameters:
@@ -131,7 +140,9 @@ class PubMed(object):
         parameters["id"] = article_ids
 
         # Make the request
-        response = self._get(url="/entrez/eutils/efetch.fcgi", parameters=parameters, output="xml")
+        response = self._get(
+            url="/entrez/eutils/efetch.fcgi", parameters=parameters, output="xml"
+        )
 
         # Parse as XML
         root = xml.fromstring(response)
@@ -190,7 +201,9 @@ class PubMed(object):
             parameters["retstart"] = retrieved_count
 
             # Make a new request
-            response = self._get(url="/entrez/eutils/esearch.fcgi", parameters=parameters)
+            response = self._get(
+                url="/entrez/eutils/esearch.fcgi", parameters=parameters
+            )
 
             # Add the retrieved IDs to the list
             article_ids += response.get("esearchresult", {}).get("idlist", [])

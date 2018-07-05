@@ -6,7 +6,7 @@ from pymed import PubMed
 pubmed = PubMed(tool="MyTool", email="my@email.address")
 
 # Create a GraphQL query in plain text
-query = "((\"2018/05/01\"[Date - Create] : \"3000\"[Date - Create])) AND (Xiaoying Xian[Author] OR diabetes)"
+query = '(("2018/05/01"[Date - Create] : "3000"[Date - Create])) AND (Xiaoying Xian[Author] OR diabetes)'
 
 # Execute the query against the API
 results = pubmed.query(query, max_results=500)
@@ -25,4 +25,6 @@ for article in results:
     abstract = article.abstract
 
     # Show information about the article
-    print(f'{article_id} - {publication_date} - {title}\nKeywords: "{keywords}"\n{abstract}\n')
+    print(
+        f'{article_id} - {publication_date} - {title}\nKeywords: "{keywords}"\n{abstract}\n'
+    )
