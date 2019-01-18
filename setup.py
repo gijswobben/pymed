@@ -18,7 +18,7 @@ setup(
     keywords="PubMed PMC",
     url="https://github.com/gijswobben/pymed",
     packages=find_packages(),
-    install_requires=["requests==2.18.4"],
+    install_requires=["requests>=2.20.0"],
     tests_require=["pytest"],
     long_description_content_type="text/markdown",
     long_description=read("README.md"),
