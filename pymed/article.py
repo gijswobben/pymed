@@ -80,17 +80,24 @@ class PubMedArticle(object):
 
         # Try to parse and clean the abstract
         try:
-            abstract_element = xml_element.find(".//AbstractText")
+            abstract_element = xml_element.findall(".//AbstractText")
 
-            if abstract_element is None:
+            if abstract_element is None or (
+                isinstance(abstract_element, list) and len(abstract_element) == 0
+            ):
                 self.abstract = ""
 
             else:
-                self.abstract = (
-                    xml.tostring(abstract_element, method="text")
-                    .decode("utf8")
-                    .strip()
-                    .replace("\n", " ")
+                self.abstract = "\n".join(
+                    [
+                        (
+                            xml.tostring(abstract_element_section, method="text")
+                            .decode("utf8")
+                            .strip()
+                            .replace("\n", " ")
+                        )
+                        for abstract_element_section in abstract_element
+                    ]
                 )
 
         # Set the abstract to None if we're unable to parse it
