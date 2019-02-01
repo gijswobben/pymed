@@ -19,7 +19,8 @@ for article in results:
     # Extract and format information from the article
     article_id = article.article_id
     title = article.title
-    keywords = '", "'.join(article.keywords)
+    if article.keywords is not None:
+        keywords = '", "'.join([keyword for keyword in article.keywords if keyword is not None])
     publication_date = article.publication_date
     abstract = article.abstract
 
