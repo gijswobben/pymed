@@ -1,2 +1,3 @@
 requests>=2.20.0
 gitpython>=2.1.11
+twine>=1.12.1
