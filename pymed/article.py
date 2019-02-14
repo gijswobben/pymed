@@ -44,6 +44,26 @@ class PubMedArticle(object):
         """ Helper method that parses an XML element into an article object.
         """
 
+        def _attemptGrab(xml_finder_text):
+            # Try to parse and clean the element
+            try:
+                element = xml_element.find(xml_finder_text)
+                if element is not None:
+                    element = (
+                        xml.tostring(element, method="text")
+                        .decode("utf8")
+                        .strip()
+                        .replace("\n", " ")
+                    )
+
+            # Set to None if we're unable to parse it
+            except:
+                element = None
+
+            return element
+
+
+
         def _getText(element: TypeVar("Element"), path: str, default: str = "") -> str:
             """ Internal helper method that retrieves the text content of an
                 XML element.
@@ -78,32 +98,13 @@ class PubMedArticle(object):
         ]
         self.journal = _getText(xml_element, ".//Journal/Title", None)
 
-        # Try to parse and clean the abstract
-        try:
-            abstract_element = xml_element.findall(".//AbstractText")
 
-            if abstract_element is None or (
-                isinstance(abstract_element, list) and len(abstract_element) == 0
-            ):
-                self.abstract = ""
+        # Try to parse and clean abstract elements
+        self.abstract = _attemptGrab(xml_finder_text=".//AbstractText")
+        self.conclusion = _attemptGrab(xml_finder_text=".//AbstractText[@Label='CONCLUSION']")
+        self.method = _attemptGrab(xml_finder_text=".//AbstractText[@Label='METHOD']")
+        self.results = _attemptGrab(xml_finder_text=".//AbstractText[@Label='RESULTS']")
 
-            else:
-                self.abstract = "\n".join(
-                    [
-                        (
-                            xml.tostring(abstract_element_section, method="text")
-                            .decode("utf8")
-                            .strip()
-                            .replace("\n", " ")
-                        )
-                        for abstract_element_section in abstract_element
-                    ]
-                )
-
-        # Set the abstract to None if we're unable to parse it
-        except Exception as e:
-            print(e)
-            self.abstract = None
 
         # Get the publication date
         try:
