@@ -32,6 +32,9 @@ class PubMedArticle(object):
                 self.article_id = kwargs.get("article_id")
                 self.title = kwargs.get("title")
                 self.abstract = kwargs.get("abstract")
+                self.methods = kwargs.get("methods")
+                self.conclusion = kwargs.get("conclusion")
+                self.results = kwargs.get("results")                
                 self.keywords = kwargs.get("keywords")
                 self.journal = kwargs.get("journal")
                 self.publication_date = kwargs.get("publication_date")
@@ -43,6 +46,26 @@ class PubMedArticle(object):
     def _initializeFromXML(self: object, xml_element: TypeVar("Element")) -> None:
         """ Helper method that parses an XML element into an article object.
         """
+
+        def _attemptGrab(xml_finder_text):
+            # Try to parse and clean the conclusion
+            try:
+                element = xml_element.find(xml_finder_text)
+                if element is not None:
+                    element = (
+                        xml.tostring(element, method="text")
+                        .decode("utf8")
+                        .strip()
+                        .replace("\n", " ")
+                    )
+
+            # Set to None if we're unable to parse it
+            except:
+                element = None
+
+            return element
+
+
 
         def _getText(element: TypeVar("Element"), path: str, default: str = "") -> str:
             """ Internal helper method that retrieves the text content of an
@@ -78,32 +101,13 @@ class PubMedArticle(object):
         ]
         self.journal = _getText(xml_element, ".//Journal/Title", None)
 
-        # Try to parse and clean the abstract
-        try:
-            abstract_element = xml_element.findall(".//AbstractText")
 
-            if abstract_element is None or (
-                isinstance(abstract_element, list) and len(abstract_element) == 0
-            ):
-                self.abstract = ""
+        # Try to parse and clean abstract elements
+        self.abstract = _attemptGrab(xml_finder_text=".//AbstractText")
+        self.conclusion = _attemptGrab(xml_finder_text=".//AbstractText[@Label='CONCLUSION']")
+        self.methods = _attemptGrab(xml_finder_text=".//AbstractText[@Label='METHODS']")
+        self.results = _attemptGrab(xml_finder_text=".//AbstractText[@Label='RESULTS']")
 
-            else:
-                self.abstract = "\n".join(
-                    [
-                        (
-                            xml.tostring(abstract_element_section, method="text")
-                            .decode("utf8")
-                            .strip()
-                            .replace("\n", " ")
-                        )
-                        for abstract_element_section in abstract_element
-                    ]
-                )
-
-        # Set the abstract to None if we're unable to parse it
-        except Exception as e:
-            print(e)
-            self.abstract = None
 
         # Get the publication date
         try:
