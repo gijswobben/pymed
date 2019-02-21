@@ -16,15 +16,8 @@ results = pubmed.query(query, max_results=500)
 # Loop over the retrieved articles
 for article in results:
 
-    # Extract and format information from the article
-    article_id = article.article_id
-    title = article.title
-    if article.keywords is not None:
-        keywords = '", "'.join([keyword for keyword in article.keywords if keyword is not None])
-    publication_date = article.publication_date
-    abstract = article.abstract
+    # Print the type of object we've found (can be either PubMedBookArticle or PubMedArticle)
+    print(type(article))
 
-    # Show information about the article
-    print(
-        f'{article_id} - {publication_date} - {title}\nKeywords: "{keywords}"\n{abstract}\n'
-    )
+    # Print a JSON representation of the object
+    print(article.toJSON())
