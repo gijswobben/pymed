@@ -114,6 +114,7 @@ class PubMedArticle(object):
                 "lastname": getContent(author, ".//LastName", None),
                 "firstname": getContent(author, ".//ForeName", None),
                 "initials": getContent(author, ".//Initials", None),
+                "affiliation": getContent(author, ".//AffiliationInfo/Affiliation", None),
             }
             for author in xml_element.findall(".//Author")
         ]
