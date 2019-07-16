@@ -15,7 +15,7 @@ results = pubmed.query(query, max_results=500)
 for article in results:
 
     # Extract and format information from the article
-    article_id = article.article_id
+    article_id = article.pubmed_id
     title = article.title
     if article.keywords:
         if None in article.keywords:
