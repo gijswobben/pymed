@@ -24,6 +24,7 @@ class PubMedArticle(object):
         "results",
         "copyrights",
         "doi",
+        "xml",
     )
 
     def __init__(
@@ -136,6 +137,7 @@ class PubMedArticle(object):
         self.doi = self._extractDoi(xml_element)
         self.publication_date = self._extractPublicationDate(xml_element)
         self.authors = self._extractAuthors(xml_element)
+        self.xml = xml_element
 
     def toDict(self: object) -> dict:
         """ Helper method to convert the parsed information to a Python dict.
