@@ -1,6 +1,9 @@
 # PyMedFHCRC - The Fred Hutch Version of PyMed
 The intent of this project is keep a local copy of the PyMed Python package to better suit Fred Hutch's needs in terms of fields brought in via PubMed and any other changes we may need to make.
 
+Original Code and README by Gijs Wobben (https://github.com/gijswobben)
+
+
 # PyMed - PubMed Access through Python
 PyMed is a Python library that provides access to PubMed through the PubMed API.
 
