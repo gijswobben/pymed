@@ -17,14 +17,18 @@ class PubMedArticle(object):
         "abstract",
         "keywords",
         "journal",
+        "issns",
+        "issueNumber",
         "publication_type",
         "publication_date",
         "authors",
         "methods",
         "conclusions",
         "results",
+        "owner",
         "copyrights",
         "doi",
+        "nlmUniqueID",
         "xml",
     )
 
@@ -88,8 +92,16 @@ class PubMedArticle(object):
         path = ".//ArticleId[@IdType='doi']"
         return getContent(element=xml_element, path=path)
 
+    def _extractNlmUniqueID(self: object, xml_element: TypeVar("Element")) -> int:
+        path = ".//NlmUniqueID"
+        return int(getContent(element=xml_element, path=path))
+
     def _extractPublicationType(self: object, xml_element: TypeVar("Element")) -> str:
         path = ".//PublicationTypeList/PublicationType"
+        return getContent(element=xml_element, path=path)
+
+    def _extractOwner(self: object, xml_element: TypeVar("Element")) -> str:
+        path = ".//MedlineCitation[@Owner]"
         return getContent(element=xml_element, path=path)
 
     def _extractIssueNumber(self: object, xml_element: TypeVar("Element")) -> Optional[int]:
@@ -129,10 +141,17 @@ class PubMedArticle(object):
                 "firstname": getContent(author, ".//ForeName", None),
                 "initials": getContent(author, ".//Initials", None),
                 "affiliation": getContent(author, ".//AffiliationInfo/Affiliation", None),
-                "Identifier": getContent(author, ".//Identifier[@label='SOURCE']", None),
+                "Identifier": getContent(author, ".//Identifier[@SOURCE='ORCID']", None),
             }
             for author in xml_element.findall(".//Author")
         ]
+
+    def _extractISSNs(self: object, xml_element: TypeVar("Element")) -> dict:
+        return {
+                "eISSN": getContent(xml_element, ".//ISSN[@IssnType='Electronic']", None),
+                "ISSN": getContent(xml_element, ".//ISSN[@IssnType='Print']", None),
+                "ISSNLinking": getContent(xml_element, ".//ISSNLinking", None)
+        }
 
     def _initializeFromXML(self: object, xml_element: TypeVar("Element")) -> None:
         """ Helper method that parses an XML element into an article object.
@@ -143,12 +162,16 @@ class PubMedArticle(object):
         self.title = self._extractTitle(xml_element)
         self.keywords = self._extractKeywords(xml_element)
         self.journal = self._extractJournal(xml_element)
+        self.issueNumber = self._extractIssueNumber(xml_element)
+        self.issns = self._extractISSNs(xml_element)
         self.abstract = self._extractAbstract(xml_element)
         self.conclusions = self._extractConclusions(xml_element)
         self.methods = self._extractMethods(xml_element)
         self.results = self._extractResults(xml_element)
         self.copyrights = self._extractCopyrights(xml_element)
         self.doi = self._extractDoi(xml_element)
+        self.nlmUniqueID = self._extractNlmUniqueID(xml_element)
+        self.owner = self._extractOwner(xml_element)
         self.publication_type = self._extractPublicationType(xml_element)
         self.publication_date = self._extractPublicationDate(xml_element)
         self.authors = self._extractAuthors(xml_element)
