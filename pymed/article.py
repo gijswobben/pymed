@@ -17,6 +17,7 @@ class PubMedArticle(object):
         "abstract",
         "keywords",
         "journal",
+        "publication_type",
         "publication_date",
         "authors",
         "methods",
@@ -87,6 +88,18 @@ class PubMedArticle(object):
         path = ".//ArticleId[@IdType='doi']"
         return getContent(element=xml_element, path=path)
 
+    def _extractPublicationType(self: object, xml_element: TypeVar("Element")) -> str:
+        path = ".//PublicationTypeList/PublicationType"
+        return getContent(element=xml_element, path=path)
+
+    def _extractIssueNumber(self: object, xml_element: TypeVar("Element")) -> Optional[int]:
+        path = ".//Issue"
+        try:
+            return int(getContent(element=xml_element, path=path))
+        except Exception as e:
+            print(e)
+            return None
+
     def _extractPublicationDate(
         self: object, xml_element: TypeVar("Element")
     ) -> TypeVar("datetime.datetime"):
@@ -116,7 +129,7 @@ class PubMedArticle(object):
                 "firstname": getContent(author, ".//ForeName", None),
                 "initials": getContent(author, ".//Initials", None),
                 "affiliation": getContent(author, ".//AffiliationInfo/Affiliation", None),
-                "Identifier": getContent(author, ".//Identifier", None),
+                "Identifier": getContent(author, ".//Identifier[@label='SOURCE']", None),
             }
             for author in xml_element.findall(".//Author")
         ]
@@ -136,6 +149,7 @@ class PubMedArticle(object):
         self.results = self._extractResults(xml_element)
         self.copyrights = self._extractCopyrights(xml_element)
         self.doi = self._extractDoi(xml_element)
+        self.publication_type = self._extractPublicationType(xml_element)
         self.publication_date = self._extractPublicationDate(xml_element)
         self.authors = self._extractAuthors(xml_element)
         self.xml = xml_element
