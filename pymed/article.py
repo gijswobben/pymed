@@ -1,5 +1,6 @@
 import json
 import datetime
+import re
 
 from typing import TypeVar
 from typing import Optional
@@ -100,15 +101,16 @@ class PubMedArticle(object):
         path = ".//PublicationTypeList/PublicationType"
         return getContent(element=xml_element, path=path)
 
-    def _extractOwner(self: object, xml_element: TypeVar("Element")) -> str:
-        path = ".//MedlineCitation[@Owner]"
-        return getContent(element=xml_element, path=path)
+    def _extractOwner(self: object, xml_element: TypeVar("Element")) -> list:
+        path = ".//MedlineCitation"
+        return [elem.attrib.get('Owner') for elem in xml_element.findall(path)]
 
     def _extractIssueNumber(self: object, xml_element: TypeVar("Element")) -> Optional[int]:
         path = ".//Issue"
         try:
             return int(getContent(element=xml_element, path=path))
         except Exception as e:
+            print('line112')
             print(e)
             return None
 
@@ -135,16 +137,23 @@ class PubMedArticle(object):
             return None
 
     def _extractAuthors(self: object, xml_element: TypeVar("Element")) -> list:
-        return [
-            {
+        # adding regular expression support to extract ORCID more cleanly
+        pattern = re.compile("(https?://orcid.org/)([0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4})")
+        authors = []
+        for author in xml_element.findall(".//Author"):
+            print(getContent(author, ".//Identifier", None))
+            if getContent(author, ".//Identifier", None):
+                orcid = re.match(pattern, getContent(author, ".//Identifier", None))[2]
+            else:
+                orcid = None
+            authors.append({
                 "lastname": getContent(author, ".//LastName", None),
                 "firstname": getContent(author, ".//ForeName", None),
                 "initials": getContent(author, ".//Initials", None),
                 "affiliation": getContent(author, ".//AffiliationInfo/Affiliation", None),
-                "Identifier": getContent(author, ".//Identifier[@SOURCE='ORCID']", None),
-            }
-            for author in xml_element.findall(".//Author")
-        ]
+                "Identifier": orcid,
+            })
+        return authors
 
     def _extractISSNs(self: object, xml_element: TypeVar("Element")) -> dict:
         return {
