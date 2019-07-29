@@ -1,0 +1,218 @@
+<PubmedArticle>
+    <MedlineCitation Status="In-Process" Owner="NLM">
+        <PMID Version="1">31253142</PMID>
+        <DateRevised>
+            <Year>2019</Year>
+            <Month>07</Month>
+            <Day>12</Day>
+        </DateRevised>
+        <Article PubModel="Electronic">
+            <Journal>
+                <ISSN IssnType="Electronic">1471-2474</ISSN>
+                <JournalIssue CitedMedium="Internet">
+                    <Volume>20</Volume>
+                    <Issue>1</Issue>
+                    <PubDate>
+                        <Year>2019</Year>
+                        <Month>Jun</Month>
+                        <Day>29</Day>
+                    </PubDate>
+                </JournalIssue>
+                <Title>BMC musculoskeletal disorders</Title>
+                <ISOAbbreviation>BMC Musculoskelet Disord</ISOAbbreviation>
+            </Journal>
+            <ArticleTitle>Accelerated knee osteoarthritis is associated with pre-radiographic degeneration of the extensor mechanism and cruciate ligaments: data from the Osteoarthritis Initiative.</ArticleTitle>
+            <Pagination>
+                <MedlinePgn>308</MedlinePgn>
+            </Pagination>
+            <ELocationID EIdType="doi" ValidYN="Y">10.1186/s12891-019-2685-y</ELocationID>
+            <Abstract>
+                <AbstractText Label="BACKGROUND" NlmCategory="BACKGROUND">To determine if adults with incident accelerated knee osteoarthritis (KOA) are more likely to have degenerative knee ligaments or tendons compared to individuals with typical or no KOA.</AbstractText>
+                <AbstractText Label="METHODS" NlmCategory="METHODS">We identified 3 sex-matched groups among Osteoarthritis Initiative participants who had a knee without radiographic KOA at baseline (Kellgren-Lawrence [KL] &lt; 2): 1) accelerated KOA: at least 1 knee had KL grade ≥ 3 in ≤48 months, 2) typical KOA: at least 1 knee increased in radiographic scoring within 48 months, 3) no KOA: both knees had the same KL grade at baseline and 48 months. We evaluated knee magnetic resonance images up to 2 years before and after a visit when the accelerated or typical KOA criteria were met (index visit). Radiologists reported degenerative signal changes for cruciate and collateral ligaments, and extensor mechanism and proximal gastrocnemius tendons. We used generalized linear mixed models with 2 independent variables: group and time.</AbstractText>
+                <AbstractText Label="RESULTS" NlmCategory="RESULTS">Starting at least 2 years before onset, adults with accelerated KOA were twice as likely to have degenerative cruciate ligaments than no KOA (odds ratio = 2.10, 95% CI = 1.18, 3.74). A weaker association (not statistically significant) was detected for adults with accelerated versus typical KOA (OR = 1.72, 95%CI = 0.99, 3.02). Regardless of time, adults with accelerated (odds ratio = 2.13) or typical KOA (odds ratio = 2.16) were twice as likely to have a degenerative extensor mechanism than no KOA. No other structural features were statistically significant.</AbstractText>
+                <AbstractText Label="CONCLUSIONS" NlmCategory="CONCLUSIONS">Degenerative cruciate ligaments or extensor mechanism antedate radiographic onset of accelerated KOA. Hence, knee instability may precede accelerated KOA, which might help identify patients at high-risk for accelerated KOA and novel prevention strategies.</AbstractText>
+            </Abstract>
+            <AuthorList CompleteYN="Y">
+                <Author ValidYN="Y">
+                    <LastName>Davis</LastName>
+                    <ForeName>Julie E</ForeName>
+                    <Initials>JE</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Division of Rheumatology, Allergy &amp; Immunology, Tufts Medical Center, 800 Washington Street, Box #406, Boston, MA, 02111, USA.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Harkey</LastName>
+                    <ForeName>Matthew S</ForeName>
+                    <Initials>MS</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Division of Rheumatology, Allergy &amp; Immunology, Tufts Medical Center, 800 Washington Street, Box #406, Boston, MA, 02111, USA.</Affiliation>
+                    </AffiliationInfo>
+                    <AffiliationInfo>
+                        <Affiliation>Department of Population and Quantitative Health Sciences, University of Massachusetts Medical School, 368 Plantation Street, Worcester, MA, 01605, USA.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Ward</LastName>
+                    <ForeName>Robert J</ForeName>
+                    <Initials>RJ</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Department of Radiology, Tufts Medical Center, 800 Washington Street, Boston, MA, 02111, USA.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>MacKay</LastName>
+                    <ForeName>James W</ForeName>
+                    <Initials>JW</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Department of Radiology, University of Cambridge School of Clinical Medicine, Box 218, Level 5, Addenbrooke's Hospital, Cambridge, CB2 0QQ, UK.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Lu</LastName>
+                    <ForeName>Bing</ForeName>
+                    <Initials>B</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Brigham &amp; Women's Hospital and Harvard Medical School, 75 Francis Street PBB-B3, Boston, MA, 02115, USA.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Price</LastName>
+                    <ForeName>Lori Lyn</ForeName>
+                    <Initials>LL</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>The Institute for Clinical Research and Health Policy Studies, Tufts Medical Center, 800 Washington Street, Box #63, Boston, MA, 02111, USA.</Affiliation>
+                    </AffiliationInfo>
+                    <AffiliationInfo>
+                        <Affiliation>Tufts Clinical and Translational Science Institute, Tufts University, 800 Washington Street, Box #63, Boston, MA, 02111, USA.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Eaton</LastName>
+                    <ForeName>Charles B</ForeName>
+                    <Initials>CB</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Center for Primary Care and Prevention, Alpert Medical School of Brown University, 111 Brewster Street, Pawtucket, RI, 02860, USA.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Lo</LastName>
+                    <ForeName>Grace H</ForeName>
+                    <Initials>GH</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Medical Care Line and Research Care Line, Houston Health Services Research and Development (HSR&amp;D) Center of Excellence Michael E. DeBakey VAMC, Houston, TX, USA.</Affiliation>
+                    </AffiliationInfo>
+                    <AffiliationInfo>
+                        <Affiliation>Section of Immunology Allergy and Rheumatology, Baylor College of Medicine, Houston, TX. 1 Baylor Plaza, BCM-285, Houston, TX, 77030, USA.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Barbe</LastName>
+                    <ForeName>Mary F</ForeName>
+                    <Initials>MF</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Department of Anatomy and Cell Biology, Temple University School of Medicine, 3500 North Broad Street, Philadelphia, PA, 19140, USA.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>McAlindon</LastName>
+                    <ForeName>Timothy E</ForeName>
+                    <Initials>TE</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Division of Rheumatology, Allergy &amp; Immunology, Tufts Medical Center, 800 Washington Street, Box #406, Boston, MA, 02111, USA.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Driban</LastName>
+                    <ForeName>Jeffrey B</ForeName>
+                    <Initials>JB</Initials>
+                    <Identifier Source="ORCID">http://orcid.org/0000-0001-6098-4273</Identifier>
+                    <AffiliationInfo>
+                        <Affiliation>Division of Rheumatology, Allergy &amp; Immunology, Tufts Medical Center, 800 Washington Street, Box #406, Boston, MA, 02111, USA. jeffrey.driban@tufts.edu.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+            </AuthorList>
+            <Language>eng</Language>
+            <GrantList CompleteYN="Y">
+                <Grant>
+                    <GrantID>R01 AR065977</GrantID>
+                    <Agency>National Institute of Arthritis and Musculoskeletal and Skin Diseases</Agency>
+                    <Country/>
+                </Grant>
+                <Grant>
+                    <GrantID>K23 AR062127</GrantID>
+                    <Agency>National Institute of Arthritis and Musculoskeletal and Skin Diseases</Agency>
+                    <Country/>
+                </Grant>
+                <Grant>
+                    <GrantID>CIN 13-413</GrantID>
+                    <Agency>Health Services Research and Development</Agency>
+                    <Country/>
+                </Grant>
+            </GrantList>
+            <PublicationTypeList>
+                <PublicationType UI="D016428">Journal Article</PublicationType>
+            </PublicationTypeList>
+            <ArticleDate DateType="Electronic">
+                <Year>2019</Year>
+                <Month>06</Month>
+                <Day>29</Day>
+            </ArticleDate>
+        </Article>
+        <MedlineJournalInfo>
+            <Country>England</Country>
+            <MedlineTA>BMC Musculoskelet Disord</MedlineTA>
+            <NlmUniqueID>100968565</NlmUniqueID>
+            <ISSNLinking>1471-2474</ISSNLinking>
+        </MedlineJournalInfo>
+        <KeywordList Owner="NOTNLM">
+            <Keyword MajorTopicYN="N">Epidemiology</Keyword>
+            <Keyword MajorTopicYN="N">Knee</Keyword>
+            <Keyword MajorTopicYN="N">Ligaments</Keyword>
+            <Keyword MajorTopicYN="N">Osteoarthritis</Keyword>
+            <Keyword MajorTopicYN="N">Tendons</Keyword>
+        </KeywordList>
+    </MedlineCitation>
+    <PubmedData>
+        <History>
+            <PubMedPubDate PubStatus="received">
+                <Year>2018</Year>
+                <Month>07</Month>
+                <Day>25</Day>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="accepted">
+                <Year>2019</Year>
+                <Month>06</Month>
+                <Day>18</Day>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="entrez">
+                <Year>2019</Year>
+                <Month>6</Month>
+                <Day>30</Day>
+                <Hour>6</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="pubmed">
+                <Year>2019</Year>
+                <Month>6</Month>
+                <Day>30</Day>
+                <Hour>6</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="medline">
+                <Year>2019</Year>
+                <Month>6</Month>
+                <Day>30</Day>
+                <Hour>6</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+        </History>
+        <PublicationStatus>epublish</PublicationStatus>
+        <ArticleIdList>
+            <ArticleId IdType="pubmed">31253142</ArticleId>
+            <ArticleId IdType="doi">10.1186/s12891-019-2685-y</ArticleId>
+            <ArticleId IdType="pii">10.1186/s12891-019-2685-y</ArticleId>
+            <ArticleId IdType="pmc">PMC6599240</ArticleId>
+        </ArticleIdList>
+    </PubmedData>
+</PubmedArticle>

@@ -19,7 +19,7 @@ def batches(iterable: list, n: int = 1) -> list:
     for index in range(0, length, n):
 
         # Create a new iterable by slicing the original
-        yield iterable[index : min(index + n, length)]
+        yield iterable[index: min(index + n, length)]
 
 
 def getContent(
@@ -47,3 +47,27 @@ def getContent(
     # Extract the text and return it
     else:
         return separator.join([sub.text for sub in result if sub.text is not None])
+
+
+def getContentList(element: TypeVar("Element"), path: str, default: str = None) -> list:
+    """ Internal helper method that retrieves the text content of an
+            XML element.
+
+            Parameters:
+                - element   Element, the XML element to parse.
+                - path      Str, Nested path in the XML element.
+                - default   Str, default value to return when no text is found.
+
+            Returns:
+                - list of values of the XML list
+    """
+    # Find the path in the element
+    result = element.findall(path)
+
+    # Return the Default value if there is no such element
+    if result is None or len(result) == 0:
+        return default
+
+    # Extracts and returns the results
+    else:
+        return [listelement for elem in result for listelement in elem]

@@ -6,6 +6,7 @@ from typing import TypeVar
 from typing import Optional
 
 from .helpers import getContent
+from .helpers import getContentList
 
 
 class PubMedArticle(object):
@@ -17,10 +18,10 @@ class PubMedArticle(object):
         "title",
         "abstract",
         "keywords",
-        "MeshHeadings",
+        "mesh_headings",
         "journal",
         "issns",
-        "issueNumber",
+        "issue_number",
         "publication_type",
         "publication_date",
         "authors",
@@ -30,8 +31,8 @@ class PubMedArticle(object):
         "owner",
         "copyrights",
         "doi",
-        "nlmUniqueID",
-        "ArticleIDs",
+        "nlm_unique_id",
+        "article_ids",
         "xml",
     )
 
@@ -112,9 +113,9 @@ class PubMedArticle(object):
         path = ".//ArticleIdList"
         return [
             {
-                id.find(".//ArticleId").attrib['IdType']: getContent(xml_element, ".//ArticleId", None)
+                id.attrib['IdType']: getContent(xml_element, ".//ArticleId", None)
             }
-            for id in xml_element.findall(path)
+            for id in getContentList(xml_element, path, None)
         ]
 
     def _extractPublicationType(self: object, xml_element: TypeVar("Element")) -> str:
@@ -195,9 +196,9 @@ class PubMedArticle(object):
         self.pubmed_id = self._extractPubMedId(xml_element)
         self.title = self._extractTitle(xml_element)
         self.keywords = self._extractKeywords(xml_element)
-        self.MeshHeadings = self._extractMeshHeadings(xml_element)
+        self.mesh_headings = self._extractMeshHeadings(xml_element)
         self.journal = self._extractJournal(xml_element)
-        self.issueNumber = self._extractIssueNumber(xml_element)
+        self.issue_number = self._extractIssueNumber(xml_element)
         self.issns = self._extractISSNs(xml_element)
         self.abstract = self._extractAbstract(xml_element)
         self.conclusions = self._extractConclusions(xml_element)
@@ -205,8 +206,8 @@ class PubMedArticle(object):
         self.results = self._extractResults(xml_element)
         self.copyrights = self._extractCopyrights(xml_element)
         self.doi = self._extractDoi(xml_element)
-        self.nlmUniqueID = self._extractNlmUniqueID(xml_element)
-        self.ArticleIDs = self._extractArticleIDs(xml_element)
+        self.nlm_unique_id = self._extractNlmUniqueID(xml_element)
+        self.article_ids = self._extractArticleIDs(xml_element)
         self.owner = self._extractOwner(xml_element)
         self.publication_type = self._extractPublicationType(xml_element)
         self.publication_date = self._extractPublicationDate(xml_element)
