@@ -70,12 +70,16 @@ class PubMedArticle(object):
 
     def _extractMeshHeadings(self: object, xml_element: TypeVar("Element")) -> str:
         path = ".//MeshHeadingList"
-        return [
-                {
-                    getContent(heading, ".//DescriptorName", None): heading.find(".//DescriptorName").attrib['MajorTopicYN']
-                }
-            for heading in xml_element.findall(path)
-        ]
+        meshList = getContentList(xml_element, path, None)
+        if meshList is None or len(meshList) == 0:
+            return None
+        else:
+            return [
+                    {
+                        descriptior.text: descriptior.attrib['MajorTopicYN']
+                    }
+                for heading in getContentList(xml_element, path, None) for descriptior in heading.findall(".//DescriptorName")
+            ]
 
     def _extractJournal(self: object, xml_element: TypeVar("Element")) -> str:
         path = ".//Journal/Title"
@@ -113,7 +117,7 @@ class PubMedArticle(object):
         path = ".//ArticleIdList"
         return [
             {
-                id.attrib['IdType']: getContent(xml_element, ".//ArticleId", None)
+                id.attrib['IdType']: id.text
             }
             for id in getContentList(xml_element, path, None)
         ]
