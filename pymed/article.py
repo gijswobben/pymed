@@ -17,6 +17,7 @@ class PubMedArticle(object):
         "title",
         "abstract",
         "keywords",
+        "MeshHeadings",
         "journal",
         "issns",
         "issueNumber",
@@ -30,6 +31,7 @@ class PubMedArticle(object):
         "copyrights",
         "doi",
         "nlmUniqueID",
+        "ArticleIDs",
         "xml",
     )
 
@@ -65,6 +67,15 @@ class PubMedArticle(object):
             keyword.text for keyword in xml_element.findall(path) if keyword is not None
         ]
 
+    def _extractMeshHeadings(self: object, xml_element: TypeVar("Element")) -> str:
+        path = ".//MeshHeadingList"
+        return [
+                {
+                    getContent(heading, ".//DescriptorName", None): heading.find(".//DescriptorName").attrib['MajorTopicYN']
+                }
+            for heading in xml_element.findall(path)
+        ]
+
     def _extractJournal(self: object, xml_element: TypeVar("Element")) -> str:
         path = ".//Journal/Title"
         return getContent(element=xml_element, path=path)
@@ -97,13 +108,22 @@ class PubMedArticle(object):
         path = ".//NlmUniqueID"
         return int(getContent(element=xml_element, path=path))
 
+    def _extractArticleIDs(self: object, xml_element: TypeVar("Element")) -> list:
+        path = ".//ArticleIdList"
+        return [
+            {
+                id.find(".//ArticleId").attrib['IdType']: getContent(xml_element, ".//ArticleId", None)
+            }
+            for id in xml_element.findall(path)
+        ]
+
     def _extractPublicationType(self: object, xml_element: TypeVar("Element")) -> str:
         path = ".//PublicationTypeList/PublicationType"
         return getContent(element=xml_element, path=path)
 
-    def _extractOwner(self: object, xml_element: TypeVar("Element")) -> list:
+    def _extractOwner(self: object, xml_element: TypeVar("Element")) -> str:
         path = ".//MedlineCitation"
-        return [elem.attrib.get('Owner') for elem in xml_element.findall(path)]
+        return xml_element.find(path).attrib['Owner']
 
     def _extractIssueNumber(self: object, xml_element: TypeVar("Element")) -> Optional[int]:
         path = ".//Issue"
@@ -138,12 +158,17 @@ class PubMedArticle(object):
 
     def _extractAuthors(self: object, xml_element: TypeVar("Element")) -> list:
         # adding regular expression support to extract ORCID more cleanly
-        pattern = re.compile("(https?://orcid.org/)([0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4})")
+        pattern = re.compile("(https?://orcid.org/)([0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9]{1}|[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}X)")
         authors = []
         for author in xml_element.findall(".//Author"):
             print(getContent(author, ".//Identifier", None))
             if getContent(author, ".//Identifier", None):
-                orcid = re.match(pattern, getContent(author, ".//Identifier", None))[2]
+                try:
+                    orcid = re.match(pattern, getContent(author, ".//Identifier", None))[2]
+                except Exception as e:
+                    print(e)
+                    print(getContent(author, ".//Identifier"))
+                    orcid = None
             else:
                 orcid = None
             authors.append({
@@ -170,6 +195,7 @@ class PubMedArticle(object):
         self.pubmed_id = self._extractPubMedId(xml_element)
         self.title = self._extractTitle(xml_element)
         self.keywords = self._extractKeywords(xml_element)
+        self.MeshHeadings = self._extractMeshHeadings(xml_element)
         self.journal = self._extractJournal(xml_element)
         self.issueNumber = self._extractIssueNumber(xml_element)
         self.issns = self._extractISSNs(xml_element)
@@ -180,6 +206,7 @@ class PubMedArticle(object):
         self.copyrights = self._extractCopyrights(xml_element)
         self.doi = self._extractDoi(xml_element)
         self.nlmUniqueID = self._extractNlmUniqueID(xml_element)
+        self.ArticleIDs = self._extractArticleIDs(xml_element)
         self.owner = self._extractOwner(xml_element)
         self.publication_type = self._extractPublicationType(xml_element)
         self.publication_date = self._extractPublicationDate(xml_element)
