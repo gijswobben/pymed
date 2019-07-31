@@ -20,7 +20,7 @@ def clean():
             raise e
 
 
-def buildPackage(production=False):
+def buildPackage(username, password, production=False):
     """ Method that builds a package and uploads it to PyPi.
     """
 
@@ -30,9 +30,9 @@ def buildPackage(production=False):
     # Run these OS commands to build and upload the package
     os.system("python setup.py sdist bdist_wheel")
     if production:
-        os.system("twine upload --repository pypiprd dist/*")
+        os.system(f"twine upload -u {username} -p {password} --repository pypiprd dist/*")
     else:
-        os.system("twine upload --repository pypi dist/*")
+        os.system(f"twine upload -u {username} -p {password} --repository pypi dist/*")
 
     # Clean any mess we made
     clean()
@@ -79,11 +79,13 @@ def bumpVersion(release_type: str = "revision", direction: int = 1):
 
 
 @click.command()
+@click.option("--username", "-u", help="Username to publish to PyPi")
+@click.option("--password", "-p", help="Password for publishing to PyPi")
 @click.option(
     "--release_type", "-t", default="revision", help="Type of release to build"
 )
 @click.option("--production/--no-production", default=False)
-def build(release_type, production):
+def build(release_type, username, password, production):
     """ Method that chains together the bumping of the version, committing the change and pushing the new package.
     """
 
@@ -102,7 +104,7 @@ def build(release_type, production):
     commitChanges()
 
     print("Build the package and upload it to PyPi")
-    buildPackage(production=production)
+    buildPackage(username=username, password=password, production=production)
 
 
 if __name__ == "__main__":
