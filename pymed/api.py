@@ -1,3 +1,4 @@
+import datetime
 import requests
 import itertools
 
@@ -37,6 +38,10 @@ class PubMed(object):
         # Store the input parameters
         self.tool = tool
         self.email = email
+
+        # Keep track of the rate limit
+        self._rateLimit = 3
+        self._requestsMade = []
 
         # Define the standard / default query parameters
         self.parameters = {"tool": tool, "email": email, "db": "pubmed"}
@@ -92,6 +97,19 @@ class PubMed(object):
 
         # Return the total number of results (without retrieving them)
         return total_results_count
+    
+    def _exceededRateLimit(self) -> bool:
+        """ Helper method to check if we've exceeded the rate limit.
+
+            Returns:
+                - exceeded      Bool, Whether or not the rate limit is exceeded.
+        """
+
+        # Remove requests from the list that are longer than 1 second ago
+        self._requestsMade = [requestTime for requestTime in self._requestsMade if requestTime > datetime.datetime.now() - datetime.timedelta(seconds=1)]
+
+        # Return whether we've made more requests in the last second, than the rate limit
+        return len(self._requestsMade) > self._rateLimit
 
     def _get(
         self: object, url: str, parameters: dict, output: str = "json"
@@ -111,6 +129,10 @@ class PubMed(object):
                                 returend
         """
 
+        # Make sure the rate limit is not exceeded
+        while self._exceededRateLimit():
+            pass
+
         # Set the response mode
         parameters["retmode"] = output
 
@@ -119,6 +141,9 @@ class PubMed(object):
 
         # Check for any errors
         response.raise_for_status()
+
+        # Add this request to the list of requests made
+        self._requestsMade.append(datetime.datetime.now())
 
         # Return the response
         if output == "json":
