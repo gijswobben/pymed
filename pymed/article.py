@@ -26,6 +26,7 @@ class PubMedArticle(object):
         "issue_number",
         "publication_type",
         "publication_date",
+        "publication_status",
         "authors",
         "methods",
         "conclusions",
@@ -119,17 +120,20 @@ class PubMedArticle(object):
         path = ".//NlmUniqueID"
         return int(getContent(element=xml_element, path=path))
 
-    def _extractArticleIDs(self: object, xml_element: TypeVar("Element")) -> list:
+    def _extractArticleIDs(self: object, xml_element: TypeVar("Element")) -> dict:
         path = ".//ArticleIdList"
-        return [
-            {
+        return {
                 id.attrib['IdType']: id.text
-            }
+
             for id in getContentList(xml_element, path, None)
-        ]
+            }
 
     def _extractPublicationType(self: object, xml_element: TypeVar("Element")) -> str:
         path = ".//PublicationTypeList/PublicationType"
+        return getContent(element=xml_element, path=path)
+
+    def _extractPublicationStatus(self: object, xml_element: TypeVar("Element")) -> str:
+        path = ".//PublicationStatus"
         return getContent(element=xml_element, path=path)
 
     def _extractOwner(self: object, xml_element: TypeVar("Element")) -> str:
@@ -222,6 +226,7 @@ class PubMedArticle(object):
         self.owner = self._extractOwner(xml_element)
         self.publication_type = self._extractPublicationType(xml_element)
         self.publication_date = self._extractPublicationDate(xml_element)
+        self.publication_status = self._extractPublicationStatus(xml_element)
         self.authors = self._extractAuthors(xml_element)
         self.xml = xml_element
 

@@ -3,6 +3,8 @@ The intent of this project is keep a local copy of the PyMed Python package to b
 
 Original Code and README by Gijs Wobben (https://github.com/gijswobben)
 
+## Notes to self
+- figure out which dates to used (pubmed vs entrez vs epub etc)
 
 # PyMed - PubMed Access through Python
 PyMed is a Python library that provides access to PubMed through the PubMed API.
