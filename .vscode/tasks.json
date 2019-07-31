@@ -6,12 +6,19 @@
         {
             "label": "Install package",
             "type": "shell",
-            "command": "pip install -e ."
+            "command": "pip install -e .",
+            "problemMatcher": []
+        },
+        {
+            "label": "Build package",
+            "type": "shell",
+            "command": "rm -rf ./build ./dist ./venv && python setup.py sdist bdist_wheel",
+            "problemMatcher": []
         },
         {
             "label": "Publish package",
             "type": "shell",
-            "command": "python build.py -u ${input:pypiUsername} -p ${input:pypiPassword}",
+            "command": "twine upload -u ${input:pypiUsername} -p ${input:pypiPassword} --repository pypi dist/*",
             "problemMatcher": []
         }
     ],
