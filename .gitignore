@@ -107,3 +107,4 @@ DSS.egg-info/
 test-reports/
 .coveragerc
 test_env/
+.vscode/settings.json
