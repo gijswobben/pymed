@@ -2,6 +2,7 @@ import json
 import datetime
 import re
 
+from xml.etree.ElementTree import Element
 from typing import TypeVar
 from typing import Optional
 
@@ -230,7 +231,7 @@ class PubMedArticle(object):
 
         return json.dumps(
             {
-                key: (value if not isinstance(value, datetime.date) else str(value))
+                key: (value if not isinstance(value, (datetime.date, Element)) else str(value))
                 for key, value in self.toDict().items()
             },
             sort_keys=True,

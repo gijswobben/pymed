@@ -1,0 +1,30 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install package",
+            "type": "shell",
+            "command": "pip install -e ."
+        },
+        {
+            "label": "Publish package",
+            "type": "shell",
+            "command": "python build.py -u ${input:pypiUsername} -p ${input:pypiPassword}",
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "pypiUsername",
+            "type": "promptString",
+            "description": "PyPi username for publishing the package"
+        },
+        {
+            "id": "pypiPassword",
+            "type": "promptString",
+            "description": "PyPi password for publishing the package"
+        }
+    ]
+}
