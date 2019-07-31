@@ -79,7 +79,7 @@ class PubMedArticle(object):
                     {
                         descriptior.text: descriptior.attrib['MajorTopicYN']
                     }
-                for heading in getContentList(xml_element, path, None) for descriptior in heading.findall(".//DescriptorName")
+                for heading in meshList for descriptior in heading.findall(".//DescriptorName")
             ]
 
     def _extractJournal(self: object, xml_element: TypeVar("Element")) -> str:
