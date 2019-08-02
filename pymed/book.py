@@ -25,6 +25,7 @@ class PubMedBookArticle(object):
         "sections",
         "publisher",
         "publisher_location",
+        "pubmedtype",
     )
 
     def __init__(
@@ -44,6 +45,9 @@ class PubMedBookArticle(object):
         else:
             for field in self.__slots__:
                 self.__setattr__(field, kwargs.get(field, None))
+
+    def _returnPubMedType(self: object) -> str:
+        return "PubmedBookArticle"
 
     def _extractPubMedId(self: object, xml_element: TypeVar("Element")) -> str:
         path = ".//ArticleId[@IdType='pubmed']"
@@ -127,6 +131,7 @@ class PubMedBookArticle(object):
         self.publisher = self._extractPublisher(xml_element)
         self.publisher_location = self._extractPublisherLocation(xml_element)
         self.sections = self._extractSections(xml_element)
+        self.pubmedtype = self._returnPubMedType()
 
     def toDict(self: object) -> dict:
         """ Helper method to convert the parsed information to a Python dict.

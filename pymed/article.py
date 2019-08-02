@@ -23,9 +23,11 @@ class PubMedArticle(object):
         "journal",
         "page",
         "issns",
+        "volume",
         "issue_number",
         "publication_type",
         "publication_date",
+        "pubdate",
         "publication_status",
         "authors",
         "methods",
@@ -36,6 +38,7 @@ class PubMedArticle(object):
         "doi",
         "nlm_unique_id",
         "article_ids",
+        "pubmedtype",
         "xml",
     )
 
@@ -56,6 +59,9 @@ class PubMedArticle(object):
         else:
             for field in self.__slots__:
                 self.__setattr__(field, kwargs.get(field, None))
+
+    def _returnPubMedType(self: object) -> str:
+        return "PubmedArticle"
 
     def _extractPubMedId(self: object, xml_element: TypeVar("Element")) -> str:
         path = ".//ArticleId[@IdType='pubmed']"
@@ -116,9 +122,9 @@ class PubMedArticle(object):
         path = ".//ArticleId[@IdType='doi']"
         return getContent(element=xml_element, path=path)
 
-    def _extractNlmUniqueID(self: object, xml_element: TypeVar("Element")) -> int:
+    def _extractNlmUniqueID(self: object, xml_element: TypeVar("Element")) -> str:
         path = ".//NlmUniqueID"
-        return int(getContent(element=xml_element, path=path))
+        return getContent(element=xml_element, path=path)
 
     def _extractArticleIDs(self: object, xml_element: TypeVar("Element")) -> dict:
         path = ".//ArticleIdList"
@@ -146,6 +152,30 @@ class PubMedArticle(object):
             return int(getContent(element=xml_element, path=path))
         except Exception as e:
             print('line112')
+            print(e)
+            return None
+
+    def _extractVolume(self: object, xml_element: TypeVar("Element")) -> Optional[int]:
+        path = ".//Volume"
+        try:
+            return int(getContent(element=xml_element, path=path))
+        except Exception as e:
+            print('line161')
+            print(e)
+            return None
+
+    def _extractPubDate(self: object, xml_element: TypeVar("Element")) -> TypeVar("datetime.datetime"):
+        try:
+            pubDate = xml_element.find(".//PubDate")
+            publication_year = int(getContent(pubDate, ".//Year", None))
+            publication_month = int(getContent(pubDate, ".//Month", "1"))
+            publication_day = int(getContent(pubDate, ".//Day", "1"))
+
+            # Construct a datetime object from the info
+            return datetime.date(
+                year=publication_year, month=publication_month, day=publication_day
+            )
+        except Exception as e:
             print(e)
             return None
 
@@ -213,6 +243,7 @@ class PubMedArticle(object):
         self.mesh_headings = self._extractMeshHeadings(xml_element)
         self.journal = self._extractJournal(xml_element)
         self.page = self._extractPages(xml_element)
+        self.volume = self._extractVolume(xml_element)
         self.issue_number = self._extractIssueNumber(xml_element)
         self.issns = self._extractISSNs(xml_element)
         self.abstract = self._extractAbstract(xml_element)
@@ -227,7 +258,9 @@ class PubMedArticle(object):
         self.publication_type = self._extractPublicationType(xml_element)
         self.publication_date = self._extractPublicationDate(xml_element)
         self.publication_status = self._extractPublicationStatus(xml_element)
+        self.pubdate = self._extractPubDate(xml_element)
         self.authors = self._extractAuthors(xml_element)
+        self.pubmedtype = self._returnPubMedType()
         self.xml = xml_element
 
     def toDict(self: object) -> dict:
