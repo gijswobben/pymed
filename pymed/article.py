@@ -5,6 +5,7 @@ import re
 from xml.etree.ElementTree import Element
 from typing import TypeVar
 from typing import Optional
+from typing import Union
 
 from .helpers import getContent
 from .helpers import getContentList
@@ -164,17 +165,90 @@ class PubMedArticle(object):
             print(e)
             return None
 
-    def _extractPubDate(self: object, xml_element: TypeVar("Element")) -> TypeVar("datetime.datetime"):
+    def _extractPubDate(self: object, xml_element: TypeVar("Element")) -> Union[TypeVar("datetime.datetime"), TypeVar("str")]:
+        # There are multiple ways the PubDate field can be stored in the xml_element
+        # as such we ened to test multiple different PubDate formats to looks for the correct one
         try:
             pubDate = xml_element.find(".//PubDate")
-            publication_year = int(getContent(pubDate, ".//Year", None))
-            publication_month = int(getContent(pubDate, ".//Month", "1"))
-            publication_day = int(getContent(pubDate, ".//Day", "1"))
+        except Exception as e:
+            print(e)
+            print('No PubDate')
+            return None
+        try:
+            publication_year = getContent(pubDate, ".//Year", None)
+        # try to extract the year from the pubDate field
+        except Exception as e:
+            print(e)
+            print("No Pubdate Year")
+            # I'm thinking if the year doesn't exist that we should just drop the whole thing
+            return None
+        try:
+            publication_month = getContent(pubDate, ".//Month", "1")
+        except Exception as e:
+            print(e)
+            print("Issues with Pubdate Month")
+            pass
+        try:
+            publication_day = getContent(pubDate, ".//Day", "1")
+        except Exception as e:
+            print(e)
+            print("Date/Day error")
+            pass
+        try:
+            publication_season = getContent(pubDate, ".//Season", None)
+        except Exception as e:
+            print(e)
+            print("Season likely does not exist")
+            pass
 
-            # Construct a datetime object from the info
-            return datetime.date(
-                year=publication_year, month=publication_month, day=publication_day
+        # now let's try to create a datetime object from several different potential date formats
+        # as currently laid out above, it should be possible to parse a pubDate WITHOUT a month or date fields
+        # but it should fail spectactularly if year or the pubDate field do not exist.
+
+        # at this point, all inputs should be str's, the goal is going to be to attempt to run through
+        # different combination of str inputs through datetime.strptime() to find a date which works
+        # try with abreviated month & numerical date
+        try:
+            date_string = publication_year + '-' + publication_month + '-' + publication_day
+            return datetime.datetime.strptime(
+                date_string, "%Y-%b-%d"
             )
+        except Exception as e:
+            print(e)
+            print("Likely missing month or day")
+            pass
+        # try with only year and abbreviated month
+        try:
+            date_string = publication_year + '-' + publication_month
+            return datetime.datetime.strptime(
+                date_string, "%Y-%b"
+            )
+        except Exception as e:
+            print(e)
+            pass
+        try:
+            # assume the month is a number, but has no day component
+            date_string = publication_year + '-' + publication_month
+            return datetime.datetime.strptime(date_string, "%Y-%m")
+        except Exception as e:
+            print(e)
+            pass
+        try:
+            # assume the month is a number, but has no day component
+            date_string = publication_year + '-' + publication_month + '-' + publication_day
+            return datetime.datetime.strptime(date_string, "%Y-%m-%d")
+        except Exception as e:
+            print(e)
+            pass
+        try:
+            medlineDateStr = getContent(element=xml_element, path=".//PubDate/MedlineDate")
+            return medlineDateStr
+        except Exception as e:
+            print(e)
+            pass
+        try:
+            date_string = publication_year + '-' + publication_season
+            return date_string
         except Exception as e:
             print(e)
             return None
