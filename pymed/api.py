@@ -10,6 +10,8 @@ from .helpers import batches
 from .article import PubMedArticle
 from .book import PubMedBookArticle
 
+# regex to clean reponses
+import re
 
 # Base url for all queries
 BASE_URL = "https://eutils.ncbi.nlm.nih.gov"
@@ -97,7 +99,7 @@ class PubMed(object):
 
         # Return the total number of results (without retrieving them)
         return total_results_count
-    
+
     def _exceededRateLimit(self) -> bool:
         """ Helper method to check if we've exceeded the rate limit.
 
@@ -171,6 +173,7 @@ class PubMed(object):
         )
 
         # Parse as XML
+        response = re.sub(r'<i>|</i>|<b>|</b>', '', response)
         root = xml.fromstring(response)
 
         # Loop over the articles and construct article objects
