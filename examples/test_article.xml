@@ -1,0 +1,155 @@
+<PubmedArticle>
+    <MedlineCitation Status="MEDLINE" IndexingMethod="Curated" Owner="NLM">
+        <PMID Version="1">31245831</PMID>
+        <DateCompleted>
+            <Year>2019</Year>
+            <Month>06</Month>
+            <Day>28</Day>
+        </DateCompleted>
+        <DateRevised>
+            <Year>2019</Year>
+            <Month>06</Month>
+            <Day>28</Day>
+        </DateRevised>
+        <Article PubModel="Print">
+            <Journal>
+                <ISSN IssnType="Print">1543-5865</ISSN>
+                <JournalIssue CitedMedium="Print">
+                    <Volume>17</Volume>
+                    <Issue>3</Issue>
+                    <PubDate>
+                        <MedlineDate>2019 May/Jun</MedlineDate>
+                    </PubDate>
+                </JournalIssue>
+                <Title>Journal of emergency management (Weston, Mass.)</Title>
+                <ISOAbbreviation>J Emerg Manag</ISOAbbreviation>
+            </Journal>
+            <ArticleTitle>The Joint Counterterrorism Awareness Workshop Series (JCTAWS): Integrating disciplines for enhanced capabilities during a complex coordinated attack.</ArticleTitle>
+            <Pagination>
+                <MedlinePgn>210-212</MedlinePgn>
+            </Pagination>
+            <ELocationID EIdType="pii" ValidYN="Y">jem.2019.0419</ELocationID>
+            <ELocationID EIdType="doi" ValidYN="Y">10.5055/jem.2019.0419</ELocationID>
+            <Abstract>
+                <AbstractText>Evolving threats, such as Complex Coordinated Terrorist Attacks (CCTAs) and other High-Threat Active Violence Incidents, require a comprehensive &quot;Whole of Community&quot; approach to enhance readiness within the emergency management mission. Engaging all community stakeholders, inclusive of the private sector, public safety organizations, and the health and healthcare communities, is essential for risk reduction by preventing and limiting consequences from such critical incidents. The Joint Counterterrorism Awareness Workshop Series (JCTAWS) is a unique interdisciplinary table-top exercise sponsored by the Department of Homeland Security/Federal Emergency Management Agency, Federal Bureau of Investigation, and National Counterterrorism Center, and is designed to test plans and capabilities surrounding a CCTA. JCTAWS focuses on response integration between and across disciplines and jurisdictions. The workshop stimulates participant identification of best practices and gaps so that plans can be refined and resources realigned to improve response coordination for CCTAs.</AbstractText>
+            </Abstract>
+            <AuthorList CompleteYN="Y">
+                <Author ValidYN="Y">
+                    <LastName>Shapiro</LastName>
+                    <ForeName>Geoffrey L</ForeName>
+                    <Initials>GL</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Director, EMS &amp; Operational Medicine Training, Emergency Health Services Program, School of Medicine and Health Sciences, The George Washington University, Washington, DC.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Armstrong</LastName>
+                    <ForeName>John H</ForeName>
+                    <Initials>JH</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Department of Surgery, University of South Florida Health, Tampa, Florida.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Roberts</LastName>
+                    <ForeName>Kathryn</ForeName>
+                    <Initials>K</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Office of Counterterrorism and Security Preparedness, Protection and National Preparedness, Federal Emergency Management Agency, Washington, DC.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Gordon</LastName>
+                    <ForeName>James</ForeName>
+                    <Initials>J</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Senior Analyst, Office of Counterterrorism and Security Preparedness, Protection and National Preparedness, Federal Emergency Management Agency, Washington, DC.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Smith</LastName>
+                    <ForeName>E Reed</ForeName>
+                    <Initials>ER</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Associate Professor, Emergency Medicine, The George Washington University, Washington, DC; Operational Medical Director, Arlington County (VA) Fire Department, Arlington, Virginia.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Afman</LastName>
+                    <ForeName>Jeffrey</ForeName>
+                    <Initials>J</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Office of Counterterrorism and Security Preparedness, Protection and National Preparedness, Federal Emergency Management Agency, Washington, DC.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+                <Author ValidYN="Y">
+                    <LastName>Sasser</LastName>
+                    <ForeName>Scott M</ForeName>
+                    <Initials>SM</Initials>
+                    <AffiliationInfo>
+                        <Affiliation>Professor and Chair, Department of Emergency Medicine, Chief Clinical Officer, Western Region Greenville Health System, University of South Carolina School of Medicine Greenville, Greenville, South Carolina.</Affiliation>
+                    </AffiliationInfo>
+                </Author>
+            </AuthorList>
+            <Language>eng</Language>
+            <PublicationTypeList>
+                <PublicationType UI="D016428">Journal Article</PublicationType>
+            </PublicationTypeList>
+        </Article>
+        <MedlineJournalInfo>
+            <Country>United States</Country>
+            <MedlineTA>J Emerg Manag</MedlineTA>
+            <NlmUniqueID>101284695</NlmUniqueID>
+            <ISSNLinking>1543-5865</ISSNLinking>
+        </MedlineJournalInfo>
+        <CitationSubset>IM</CitationSubset>
+        <MeshHeadingList>
+            <MeshHeading>
+                <DescriptorName UI="D004189" MajorTopicYN="Y">Disaster Planning</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName UI="D006077" MajorTopicYN="N">Government Agencies</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName UI="D017149" MajorTopicYN="N">Private Sector</DescriptorName>
+            </MeshHeading>
+            <MeshHeading>
+                <DescriptorName UI="D023481" MajorTopicYN="Y">Terrorism</DescriptorName>
+            </MeshHeading>
+        </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+        <History>
+            <PubMedPubDate PubStatus="entrez">
+                <Year>2019</Year>
+                <Month>6</Month>
+                <Day>28</Day>
+                <Hour>6</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="pubmed">
+                <Year>2019</Year>
+                <Month>6</Month>
+                <Day>28</Day>
+                <Hour>6</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+            <PubMedPubDate PubStatus="medline">
+                <Year>2019</Year>
+                <Month>6</Month>
+                <Day>30</Day>
+                <Hour>6</Hour>
+                <Minute>0</Minute>
+            </PubMedPubDate>
+        </History>
+        <PublicationStatus>ppublish</PublicationStatus>
+        <ArticleIdList>
+            <ArticleId IdType="pubmed">31245831</ArticleId>
+            <ArticleId IdType="pii">jem.2019.0419</ArticleId>
+            <ArticleId IdType="doi">10.5055/jem.2019.0419</ArticleId>
+        </ArticleIdList>
+    </PubmedData>
+</PubmedArticle>
