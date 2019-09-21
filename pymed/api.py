@@ -149,7 +149,8 @@ class PubMed(object):
         if output == "json":
             return response.json()
         else:
-            return response.text
+            response = re.sub('<[/ ]*[a-z]{1,3}>', '', str(response.text))
+            return response
 
     def _getArticles(self: object, article_ids: list) -> list:
         """ Helper method that batches a list of article IDs and retrieves the content.
