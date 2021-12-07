@@ -47,7 +47,7 @@ class PubMedArticle(object):
                 self.__setattr__(field, kwargs.get(field, None))
 
     def _extractPubMedId(self: object, xml_element: TypeVar("Element")) -> str:
-        path = ".//ArticleId[@IdType='pubmed']"
+        path = "MedlineCitation/PMID"
         return getContent(element=xml_element, path=path)
 
     def _extractTitle(self: object, xml_element: TypeVar("Element")) -> str:
